@@ -7,8 +7,6 @@
 @section('content')
     @include('layout.userprofilenav')
 
-    @include('layouts.app')
-
 
     <div class="container ">
 

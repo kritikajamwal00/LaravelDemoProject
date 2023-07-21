@@ -9,3 +9,4 @@ Signup
 @include('userprofile.userprofile')
 @include('layout.footer')
 @endsection
+

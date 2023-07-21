@@ -16,7 +16,7 @@ body {
 }
 
 .navbar-nav .nav-link:hover {
-  color: #1a6ef5 ;
+  color: #1a6ef5 !important;
   /* Modify the desired hover color */
 }
 
@@ -36,8 +36,8 @@ body {
 }
 
 .textcolo {
-  color: #D9D9D9; 
-  font-size: 20px;
+  color: #D9D9D9 !important; 
+  font-size: 20px !important;
 }
 
 .button1 {

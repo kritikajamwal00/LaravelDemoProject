@@ -31,7 +31,7 @@ class UserprofileController extends Controller
 
     public function showEdituserprofile(){
         $user = Auth::user();
-        print_r($user);
+        // print_r($user);
         
         return view('userprofile/edituserprofile',compact('user'));
         
