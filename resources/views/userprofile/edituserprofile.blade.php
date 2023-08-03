@@ -15,7 +15,7 @@
             </div>
         @endif
         <!-- form -->
-        <form method="POST" action="{{ route('userprofile.update') }}">
+        <form method="POST" action="{{url('update')}}">
             @csrf
             <div class="row ">
                 <div class="col-12 edituserproback text-center rounded-top">
@@ -102,16 +102,20 @@
                                 style="color: #C8C8C8; "></i></span>
                         <select name="country" class="form-select form-select-sm rounded-2 border-0  fs-6"
                             aria-label=".form-select-sm example" style="background: #F9F9F9; ">
-                            <option value="India" {{ $user->country === 'India' ? 'selected' : '' }}>India</option>
-                            <option value="United States" {{ $user->country === 'United States' ? 'selected' : '' }}>United
-                                States</option>
-                            <option value="United Kingdom" {{ $user->country === 'United Kingdom' ? 'selected' : '' }}>
-                                United Kingdom</option>
+                            <option value="India" {{ $countryName === 'India' ? 'selected' : '' }}>India</option>
+                            <option value="United States" {{ $countryName === 'UK' ? 'selected' : '' }}>UK</option>
+                            <option value="United Kingdom" {{$countryName === 'US' ? 'selected' : '' }}>
+                                US</option>
+                                <option value="United Kingdom" {{$countryName === 'China' ? 'selected' : '' }}>
+                                    China</option>
 
 
                         </select>
                     </div>
                 </div>
+
+               
+                
             </div>
 
             {{-- <!-- state -->
@@ -149,8 +153,8 @@
                                         <div class="col-12">
                                             <div class="form-check">
                                                 <input class="form-check-input" type="checkbox" name="hobbies[]"
-                                                    @if (is_array(json_decode(auth()->user()->hobbies)) && in_array('Reading', json_decode(auth()->user()->hobbies))) checked @endif id="hobby2"
-                                                    value="Reading">
+                                                    @if (is_array(json_decode(auth()->user()->hobbies)) && in_array('writing', json_decode(auth()->user()->hobbies))) checked @endif id="hobby2"
+                                                    value="writing">
                                                 <label class="form-check-label">
                                                     Writing
                                                 </label>
@@ -159,8 +163,8 @@
                                         <div class="col-12">
                                             <div class="form-check">
                                                 <input class="form-check-input" type="checkbox" name="hobbies[]"
-                                                    @if (is_array(json_decode(auth()->user()->hobbies)) && in_array('Dancing', json_decode(auth()->user()->hobbies))) checked @endif id="hobby3"
-                                                    value="Dancing">
+                                                    @if (is_array(json_decode(auth()->user()->hobbies)) && in_array('Reading Books', json_decode(auth()->user()->hobbies))) checked @endif id="hobby3"
+                                                    value="Reading Books">
                                                 <label class="form-check-label">
                                                     Reading Books
                                                 </label>
@@ -169,8 +173,8 @@
                                         <div class="col-12">
                                             <div class="form-check">
                                                 <input class="form-check-input" type="checkbox" name="hobbies[]"
-                                                    @if (is_array(json_decode(auth()->user()->hobbies)) && in_array('Singing', json_decode(auth()->user()->hobbies))) checked @endif id="hobby4"
-                                                    value="Singing">
+                                                    @if (is_array(json_decode(auth()->user()->hobbies)) && in_array('Dancing', json_decode(auth()->user()->hobbies))) checked @endif id="hobby4"
+                                                    value="Dancing">
                                                 <label class="form-check-label">
                                                    Dancing
                                                 </label>

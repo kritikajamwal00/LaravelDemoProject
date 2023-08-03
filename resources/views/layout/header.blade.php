@@ -1,7 +1,6 @@
 <html lang="en">
 
 <body>
-
     <head>
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -18,8 +17,16 @@
         <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
         
-       
+        <meta name="csrf-token" content="{{ csrf_token() }}">
 
+       
+        <link rel="icon" type="image/x-icon" href="{{asset('images/car2.png')}}" >
+
+    
+    <!-- Lightbox2 CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/css/lightbox.min.css" rel="stylesheet">
+
+<!-- Rest of the layout -->
 
     
         <link rel="icon" type="image/x-icon" href="../images/car2.png" >
@@ -39,7 +46,7 @@
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
   <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
-
+  <script src="http://benalman.com/code/projects/jquery-throttle-debounce/jquery.ba-throttle-debounce.js"></script>
 
 
     </head>
@@ -72,6 +79,10 @@
                                 </li>
 
                                 <li class="nav-item">
+                                    <a class="nav-link textcolo ps-lg-3" href="{{route('post')}}">Post</a>
+                               {{-- <a class="nav-link" href="{{route('home')}}">Home</a> --}}
+                                </li>
+                                <li class="nav-item">
                                     <a class="nav-link textcolo ps-lg-3" href="{{route('blog')}}">Blog</a>
                                {{-- <a class="nav-link" href="{{route('home')}}">Home</a> --}}
                                 </li>
@@ -98,7 +109,7 @@
                                 @else
                                 <li class="nav-item">
                                     <a class="nav-link textcolo pe-lg-3 pb-lg-3"
-                                        href="userprofile">
+                                        href="{{route('userprofile.show')}}">
                                         <i class="bi bi-person-fill fs-6 "></i>Profile</a>
                                 </li>
                                 @endguest
@@ -113,7 +124,7 @@
 
     </div>
 
-
+{{-- use to add the blade file content  @hasSection= if the content get fron blade file then yield work otherwise else part will run --}}
     @hasSection('content')
     @yield('content')
     @else

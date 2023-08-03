@@ -6,7 +6,14 @@ Signup
 
 @section('content')
 @include('layouts.app')
+
+
+        <!-- Your home page content here -->
+  
+
+
 @include('userprofile.userprofile')
+
 @include('layout.footer')
 @endsection
 

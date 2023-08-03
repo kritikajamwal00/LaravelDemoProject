@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
 
@@ -21,8 +22,21 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        Paginator::useBootstrap();
         // Validator::extend('current_password', function ($attribute, $value, $parameters, $validator) {
         //     return Hash::check($value, $parameters[0]);
         // });
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+

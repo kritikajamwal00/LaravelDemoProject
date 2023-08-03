@@ -42,11 +42,7 @@
                                 <strong>{{ $message }}</strong>
                             </span>
                         @enderror
-                        {{-- @error('password')
-                            <span class="invalid-feedback d-block pb-1 ps-2" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                        @enderro --}}
+
 
                         <!-- -------lastname -->
                         <span for="name" class="col-md-4 col-form-label text-md-end">{{ __('Lastname') }}<span>
@@ -155,27 +151,26 @@
                                         @enderror
 
                                         <!--  country            -->
+                                        @php
+                                            use App\Models\Country;
+                                        @endphp
                                         <span for="country"
                                             class="col-md-4 col-form-label text-md-end">{{ __('Country') }}<span>
                                                 <div class="mb-3 d-flex justify-content-between border border-1"
                                                     style="height: 40px;">
-
                                                     <span class="fs-5 pt-1 ps-3"><i class="bi bi-globe-asia-australia"
                                                             style="color: #C8C8C8;"></i></span>
-                                                    <select id="country" class="form-control  border border-0 "
+                                                    <select id="country" class="form-control  border border-0"
                                                         name="country" autocomplete="country" autofocus>
                                                         <option value="" selected disabled>Select your country
                                                         </option>
-                                                        <option value="India"
-                                                            @if (old('country') == 'India') selected @endif>India</option>
-                                                        <option value="United States"
-                                                            @if (old('country') == 'United States') selected @endif>United States
-                                                        </option>
-                                                        <option value="United Kingdom"
-                                                            @if (old('country') == 'United Kingdom') selected @endif>United Kingdom
-                                                        </option>
+                                                        @foreach (Country::all() as $country)
+                                                            <option value="{{ $country->id }}"
+                                                                @if (old('country') == $country->id) selected @endif>
+                                                                {{ $country->name }}
+                                                            </option>
+                                                        @endforeach
                                                     </select>
-
                                                 </div>
                                                 @error('country')
                                                     <span class="invalid-feedback d-block text-start pb-1 ps-2"
@@ -184,117 +179,142 @@
                                                     </span>
                                                 @enderror
 
-                                             
+                                                {{-- States --}}
+                                                {{-- <div class="form-group" id="stateGroup" style="display: none;">
+                                                    <label for="state">State</label>
+                                                    <select id="state" name="state">
+                                                    </select>
+                                                </div> --}}
+                                              
+                                                        <div id="stateFieldContainer" style="display:none">
+                                                            <div class="text-start">State</div>
+                                                            <div class="mb-3 d-flex justify-content-between border border-1"
+                                                                style="height: 40px;">
+                                                                <span class="fs-5 pt-1 ps-3"><i
+                                                                        class="bi bi-globe-asia-australia"
+                                                                        style="color: #C8C8C8;"></i></span>
+                                                                <select id="state"
+                                                                    class="form-control  border border-0" name="state"
+                                                                    autocomplete="state" autofocus>
+                                                                   
+
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                            @error('state')
+                                                                <span class="invalid-feedback d-block text-start pb-1 ps-2"
+                                                                    role="alert">
+                                                                    <strong>{{ $message }}</strong>
+                                                                </span>
+                                                            @enderror
 
 
-                                                <span
-                                                    class="col-md-4 col-form-label text-md-end">{{ __('Gender') }}</span>
+                                                            {{-- gender --}}
+                                                            <span
+                                                                class="col-md-4 col-form-label text-md-end">{{ __('Gender') }}</span>
 
-                                                <div class=" text-start ">
+                                                            <div class=" text-start ">
 
-                                                    <label class="fw-bold " style="color: #6B6C6F;">
-                                                        <input class="form-check-input" type="radio"
-                                                            name="gender"autocomplete="gender" autofocus id="male"
-                                                            value="male"
-                                                            @if (old('gender') == 'male') checked @endif>
-                                                        <span class="ps-2">
-                                                            Male
-                                                        </span>
-                                                        
-                                                    </label>
-                                                    <label class="ps-3 fw-bold" style="color: #6B6C6F;">
-                                                        <input class="form-check-input" type="radio" name="gender"
-                                                            autocomplete="gender" autofocus id="female" value="female"
-                                                            @if (old('gender') == 'female') checked @endif>
-                                                        <span class="ps-2">
-                                                            Female
-                                                        </span>
-                                                    </label>
+                                                                <label class="fw-bold " style="color: #6B6C6F;">
+                                                                    <input class="form-check-input" type="radio"
+                                                                        name="gender"autocomplete="gender" autofocus
+                                                                        id="male" value="male"
+                                                                        @if (old('gender') == 'male') checked @endif>
+                                                                    <span class="ps-2">
+                                                                        Male
+                                                                    </span>
 
-                                                </div>
-                                                @error('gender')
-                                                    <span class="invalid-feedback text-start d-block pb-1 ps-2"
-                                                        role="alert">
-                                                        <strong>{{ $message }}</strong>
-                                                    </span>
-                                                @enderror
+                                                                </label>
+                                                                <label class="ps-3 fw-bold" style="color: #6B6C6F;">
+                                                                    <input class="form-check-input" type="radio"
+                                                                        name="gender" autocomplete="gender" autofocus
+                                                                        id="female" value="female"
+                                                                        @if (old('gender') == 'female') checked @endif>
+                                                                    <span class="ps-2">
+                                                                        Female
+                                                                    </span>
+                                                                </label>
 
-
-                                                <span for="exampleInputPassword1" class="form-label fw-bold  pt-2"
-                                                    style="color: #6B6C6F;">{{ __('Hobbies') }}</span>
-
-                                                <div class="d-flex justify-content-between mb-2">
+                                                            </div>
+                                                            @error('gender')
+                                                                <span class="invalid-feedback text-start d-block pb-1 ps-2"
+                                                                    role="alert">
+                                                                    <strong>{{ $message }}</strong>
+                                                                </span>
+                                                            @enderror
 
 
-                                                    <span class="form-check">
-                                                        <input class="form-check-input" type="checkbox" name="hobbies[]"
-                                                            id="male" value="listning music"
-                                                            @if (is_array(old('hobbies')) && in_array('listening music', old('hobbies'))) checked @endif>
-                                                        <label class="form-check-label" for="listning music">
-                                                            Listning Music
-                                                        </label>
-                                                    </span>
-                                                    <span class="form-check">
-                                                        <input class="form-check-input" type="checkbox" name="hobbies[]"
-                                                            id="female" value="reading books "
-                                                            @if (is_array(old('hobbies')) && in_array('reading books', old('hobbies'))) checked @endif>
-                                                        <label class="form-check-label pe-2" for="reading books ">
-                                                            Writing
-                                                        </label>
-                                                    </span>
-                                                </div>
-                                                <div class="d-flex  justify-content-between">
-                                                    <span class="form-check">
-                                                        <input class="form-check-input" type="checkbox" name="hobbies[]"
-                                                            id="female" value="reading books "
-                                                            @if (is_array(old('hobbies')) && in_array('reading books', old('hobbies'))) checked @endif>
-                                                        <label class="form-check-label" for="reading books ">
-                                                            Reading Books
-                                                        </label>
-                                                    </span>
-                                                    <span class="form-check">
-                                                        <input class="form-check-input" type="checkbox" name="hobbies[]"
-                                                            id="female" value="reading books "
-                                                            @if (is_array(old('hobbies')) && in_array('reading books', old('hobbies'))) checked @endif>
-                                                        <label class="form-check-label" for="reading books ">
-                                                            Dancing
-                                                        </label>
-                                                    </span>
+                                                            <span for="exampleInputPassword1"
+                                                                class="form-label fw-bold  pt-2"
+                                                                style="color: #6B6C6F;">{{ __('Hobbies') }}</span>
 
-                                                </div>
-                                               
-                                                @error('hobbies')
-                                                    <span class="invalid-feedback text-start d-block pb-1 ps-2"
-                                                        role="alert">
-                                                        <strong>{{ $message }}</strong>
-                                                    </span>
-                                                @enderror
+                                                            <div class="d-flex justify-content-between mb-2">
 
 
-                                                <div class="mb-3 form-check d-flex  ">
-                                                    <div class="pt-3"><input type="checkbox"
-                                                            class="form-check-input rounded-1 border-2 checkboxsize  border-secondary"
-                                                            id="exampleCheck1">
-                                                        <label
-                                                            class="form-check-label lh-sm checkboxtext py-lg-1  ps-2 py-1  "
-                                                            for="exampleCheck1" style="color: #6B6C6F;">I have read the <u
-                                                                class="fw-bold" style="color: #6B6C6F;">Terms
-                                                                & Conditions</u></label>
-                                                    </div>
-                                                </div>
+                                                                <span class="form-check">
+                                                                    <input class="form-check-input" type="checkbox"
+                                                                        name="hobbies[]" id="male"
+                                                                        value="listning music"
+                                                                        @if (is_array(old('hobbies')) && in_array('listening music', old('hobbies'))) checked @endif>
+                                                                    <label class="form-check-label" for="listning music">
+                                                                        Listning Music
+                                                                    </label>
+                                                                </span>
+                                                                <span class="form-check">
+                                                                    <input class="form-check-input" type="checkbox"
+                                                                        name="hobbies[]" id="female" value="writing "
+                                                                        @if (is_array(old('hobbies')) && in_array('writing', old('hobbies'))) checked @endif>
+                                                                    <label class="form-check-label pe-2" for="writing ">
+                                                                        Writing
+                                                                    </label>
+                                                                </span>
+                                                            </div>
+                                                            <div class="d-flex  justify-content-between">
+                                                                <span class="form-check">
+                                                                    <input class="form-check-input" type="checkbox"
+                                                                        name="hobbies[]" id="female"
+                                                                        value="reading books "
+                                                                        @if (is_array(old('hobbies')) && in_array('reading books', old('hobbies'))) checked @endif>
+                                                                    <label class="form-check-label" for="reading books ">
+                                                                        Reading Books
+                                                                    </label>
+                                                                </span>
+                                                                <span class="form-check">
+                                                                    <input class="form-check-input" type="checkbox"
+                                                                        name="hobbies[]" id="female" value="dancing "
+                                                                        @if (is_array(old('hobbies')) && in_array('dancing', old('hobbies'))) checked @endif>
+                                                                    <label class="form-check-label" for="dancing ">
+                                                                        Dancing
+                                                                    </label>
+                                                                </span>
 
-                                                <!-- sihnup button -->
-                                                <div class="d-grid gap-6  mx-auto"><button type="submit" name="submit"
-                                                        class="loginbtn btn btn-lg rounded-0 ">
-                                                        {{ __('Signup') }}</button></div>
+                                                            </div>
 
-                                                {{-- <div class="row mb-0">
-                            <div class="col-md-6 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
-                                    {{ __('Register') }}
-                                </button>
-                            </div>
-                        </div> --}}
+                                                            @error('hobbies')
+                                                                <span class="invalid-feedback text-start d-block pb-1 ps-2"
+                                                                    role="alert">
+                                                                    <strong>{{ $message }}</strong>
+                                                                </span>
+                                                            @enderror
+
+
+                                                            <div class="mb-3 form-check d-flex  ">
+                                                                <div class="pt-3"><input type="checkbox"
+                                                                        class="form-check-input rounded-1 border-2 checkboxsize  border-secondary"
+                                                                        id="exampleCheck1">
+                                                                    <label
+                                                                        class="form-check-label lh-sm checkboxtext py-lg-1  ps-2 py-1  "
+                                                                        for="exampleCheck1" style="color: #6B6C6F;">I have
+                                                                        read the <u class="fw-bold"
+                                                                            style="color: #6B6C6F;">Terms
+                                                                            & Conditions</u></label>
+                                                                </div>
+                                                            </div>
+
+                                                            <!-- sihnup button -->
+                                                            <div class="d-grid gap-6  mx-auto"><button type="submit"
+                                                                    name="submit" class="loginbtn btn btn-lg rounded-0 ">
+                                                                    {{ __('Signup') }}</button></div>
 
                     </form>
                 </div>
@@ -305,35 +325,44 @@
     @include('layout.footer')
 
 
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
+    <script>
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }   
+        });
+    
+        $(document).ready(function() {
+            $('#country').change(function(event) {
+                var countryid = this.value;
+    
+                $('#state').html('');
+                $.ajax({
+                    url: "{{ route('fetch-state') }}",
+                    type: 'POST',
+                    dataType: 'json',
+                    data: {
+                        country_id: countryid,
+                        _token: "{{ csrf_token() }}"
+                    },
+                    success: function(response) {
+                        $('#state').html('<option value="">Select State</option>');
+                        $.each(response.states, function(index, val) {
+                            $('#state').append('<option value="' + val.id + '">' + val.name + '</option>');
+                        });
+    
+                        // Show the state select box when country is selected
+                        $('#stateFieldContainer').show();
+                    }
+                });
+            });
+        });
+    </script>
+    
 
-
-
-
-    {{-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> --}}
-    {{-- <script>
-    $(document).ready(function () {
-       $('#country').change(function () {
-           var countryId = $(this).val();
-           var url = '/get-states'; 
-
-           $.ajax({
-               type: 'GET',
-               url: url,
-               data: { country_id: countryId },
-               success: function (data) {
-                   $('#state').html('<option value="" selected disabled>Select your state</option>');
-                   $.each(data, function (key, value) {
-                       $('#state').append('<option value="' + key + '">' + value + '</option>');
-                   });
-                   $('#state').prop('disabled', false);
-                   $('#stateDiv').show(); // Show the state field div
-               },
-               error: function (xhr, status, error) {
-                   console.log(xhr.responseText);
-               }
-           });
-       });
-   });
-</script> --}}
 @endsection
+
+
+

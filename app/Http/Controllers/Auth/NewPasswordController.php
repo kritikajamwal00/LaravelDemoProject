@@ -19,7 +19,7 @@ class NewPasswordController extends Controller
      */
     public function create(Request $request): View
     {
-        return view('auth.changepassword', ['request' => $request]);
+        return view('auth.reset-password', ['request' => $request]);
     }
 
     /**
@@ -30,7 +30,7 @@ class NewPasswordController extends Controller
     public function store(Request $request): RedirectResponse
     {
         $request->validate([
-            'token' => ['required'],
+            // 'token' => ['required'],
             'email' => ['required', 'email'],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
@@ -39,11 +39,11 @@ class NewPasswordController extends Controller
         // will update the password on an actual user model and persist it to the
         // database. Otherwise we will parse the error and return the response.
         $status = Password::reset(
-            $request->only('email', 'password', 'password_confirmation', 'token'),
+            $request->only('email', 'password', 'password_confirmation', ),
             function ($user) use ($request) {
                 $user->forceFill([
                     'password' => Hash::make($request->password),
-                    'remember_token' => Str::random(60),
+                    
                 ])->save();
 
                 event(new PasswordReset($user));
@@ -59,3 +59,26 @@ class NewPasswordController extends Controller
                             ->withErrors(['email' => __($status)]);
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+// <!-- resources/views/select_country.blade.php -->
+// <form action="{{ route('user.updateCountry', ['userId' => $user->id]) }}" method="POST">
+//     @csrf
+//     <label for="country_id">Select Your Country:</label>
+//     <select name="country_id" id="country_id">
+//         @foreach($countries as $country)
+//             <option value="{{ $country->id }}">{{ $country->name }}</option>
+//         @endforeach
+//     </select>
+//     <button type="submit">Save Country</button>
+// </form>

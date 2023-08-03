@@ -6,6 +6,11 @@
 
 @section('content')
     <div class="container mt-lg-5 mt-4 ">
+        @if (session('status'))
+        <div class="alert alert-success">
+            {{ session('status') }}
+        </div>
+    @endif
         <div class="row py-lg-5">
 
             <div class="col-lg-6 col-12 ">

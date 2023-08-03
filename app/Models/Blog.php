@@ -16,6 +16,11 @@ class Blog extends Model
 {
     $this->attributes['content'] = Purifier::clean($value);
 }
+
+public function user()
+{
+    return $this->belongsTo(User::class);
+}
 }
 
 

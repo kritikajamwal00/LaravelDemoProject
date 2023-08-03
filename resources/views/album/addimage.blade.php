@@ -9,15 +9,23 @@ Album
 @include('layout.userprofilenav')
 
 <div class="container mt-lg-5">
+    @if($message = Session::get('success'))
+    <div class="alert alert-success alert-block">
+        <strong>{{$message}}</strong>
+    </div>
+    @endif
     <div class="row border border-1 rounded-4">
         <div class="col ps-lg-4">
-            {{-- <form method="GET" id="myForm" action="albumimage" > --}}
+            <form action="{{url('storeimage')}}" name="createimage" id="createimage" method="POST" enctype="multipart/form-data">
+                @csrf 
                 
 
                 <div class="rounded-2 mt-4" style="max-width: 40%;">
             
-                        <input class="form-control" type="file" id="formFileMultiple" name="images[]"multiple>
-               
+                        <input class="form-control" type="file" id="formFileMultiple" value="{{old('image')}}"name="image[]" multiple>
+                        @if($errors->has('image'))
+                        <span class ="text-danger">{{$errors->first('image')}}</span>
+                            @endif
                 </div>
 
                 <div class="mt-3"><a href="albumimage"><button 
@@ -31,6 +39,8 @@ Album
 
 @include('layout.footer')
 @endsection
+
+
 
 <!-- js link  -->
 

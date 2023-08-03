@@ -2,13 +2,16 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Jobs\SendEmailJob;
+use Illuminate\Auth\Notifications\VerifyEmail;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
-class User extends Authenticatable
+
+class User extends Authenticatable implements MustVerifyEmail
 {
     use HasApiTokens, HasFactory, Notifiable;
 
@@ -23,6 +26,7 @@ class User extends Authenticatable
         'email',
         'password',
         'country',
+        'state_id',
         'gender',
         'hobbies',
     ];
@@ -37,7 +41,6 @@ class User extends Authenticatable
         'remember_token',
         // 'api_token',
     ];
-
     /**
      * The attributes that should be cast.
      *
@@ -48,7 +51,36 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
-    public function post(){
+    public function post()
+    {
         return $this->hasmany(Post::class);
     }
+
+
+
+    public function country()
+    {
+        return $this->belongsTo(Country::class, 'country');
+    }
+    public function state()
+    {
+        return $this->belongsTo(State::class, 'state_id');
+    }
+
+    public function blogs()
+    {
+        return $this->hasMany(Blog::class);
+    }
+
+
+    public function sendEmailVerificationNotification()
+    {
+        //dispactches the job to the queue passing it this User object
+         SendEmailJob::dispatch($this);
+    }
+   
+  
+
+
+
 }
